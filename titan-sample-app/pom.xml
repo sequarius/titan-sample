@@ -18,6 +18,10 @@
             <artifactId>titan-sample-system</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.sequarius</groupId>
+            <artifactId>titan-sample-core</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>

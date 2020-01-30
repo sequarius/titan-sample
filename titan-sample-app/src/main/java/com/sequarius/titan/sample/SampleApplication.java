@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Sequarius *
  * @since 30/01/2020
  */
-@SpringBootApplication
+@SpringBootApplication()
 @MapperScan(basePackages = "com.sequarius.**.repository")
 public class SampleApplication {
     public static void main(String[] args) {
