@@ -12,5 +12,39 @@
 
     <artifactId>titan-sample-repository</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.sequarius</groupId>
+            <artifactId>titan-sample-common</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.6</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>8.0.18</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.sequarius</groupId>
+                        <artifactId>titan-generator</artifactId>
+                        <version>1.0-SNAPSHOT</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <overwrite>true</overwrite>
+                    <!--                    <includeCompileDependencies>true</includeCompileDependencies>-->
+                    <!-- 允许移动和修改 -->
+                    <verbose>true</verbose>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

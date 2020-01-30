@@ -12,5 +12,14 @@
 
     <artifactId>titan-sample-system</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.sequarius</groupId>
+            <artifactId>titan-sample-repository</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sequarius</groupId>
+            <artifactId>titan-sample-common</artifactId>
+        </dependency>
+    </dependencies>
 </project>

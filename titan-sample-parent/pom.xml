@@ -17,6 +17,7 @@
 
     <properties>
         <lombok.version>1.18.10</lombok.version>
+        <sample.version>1.0-SNAPSHOT</sample.version>
     </properties>
 
     <dependencies>
@@ -66,6 +67,21 @@
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>8.0.18</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sequarius</groupId>
+                <artifactId>titan-sample-common</artifactId>
+                <version>${sample.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sequarius</groupId>
+                <artifactId>titan-sample-repository</artifactId>
+                <version>${sample.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sequarius</groupId>
+                <artifactId>titan-sample-system</artifactId>
+                <version>${sample.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
