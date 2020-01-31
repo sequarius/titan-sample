@@ -58,9 +58,6 @@ public class UserController {
     @PostMapping("/user")
     @ApiOperation("新增用户")
     public Response<String> addUser(@Valid @RequestBody UserRequestDTO requestDTO) {
-        if (0 < 1) {
-            throw new NullPointerException("heheda");
-        }
         if (userService.addUser(requestDTO) > 0) {
             return Response.success("新增用户成功!");
         }
