@@ -3,3 +3,4 @@
 **/target
 /titan-sample-app/src/main/resources/application.yml
 /titan-sample-repository/src/main/resources/config.properties
+/logs/

@@ -12,6 +12,7 @@ import org.springframework.http.RequestEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -56,7 +57,10 @@ public class UserController {
 
     @PostMapping("/user")
     @ApiOperation("新增用户")
-    public Response<String> addUser(@RequestBody UserRequestDTO requestDTO) {
+    public Response<String> addUser(@Valid @RequestBody UserRequestDTO requestDTO) {
+        if (0 < 1) {
+            throw new NullPointerException("heheda");
+        }
         if (userService.addUser(requestDTO) > 0) {
             return Response.success("新增用户成功!");
         }

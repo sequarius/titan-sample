@@ -1,0 +1,38 @@
+GET http://localhost:8080/system/users
+Accept: application/json
+
+###
+POST http://localhost:8080/system/user
+Content-Type: application/json
+
+{
+  "username": "xdsjsd5",
+  "password": "xdsjs1",
+  "phoneNumber": "17000000000",
+  "locked": false
+}
+
+###
+DELETE http://localhost:8080/system/user
+Content-Type: application/json
+
+[
+  25,
+  26
+]
+
+###
+PUT http://localhost:8080/system/user
+Content-Type: application/json
+
+{
+  "id": 20,
+  "phoneNumber": "17000000001",
+  "locked": true
+}
+
+###
+GET http://localhost:8080/system/user/25
+Accept: application/json
+
+###
