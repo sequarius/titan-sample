@@ -20,27 +20,27 @@ public class Response<T> {
         this.data = data;
     }
 
-    public static <T> Response<T> success(T data, String message) {
+    public static <T> Response<T> success(String message, T data) {
         return new Response<>(message, true, data);
     }
 
     public static <T> Response<T> success(T data) {
-        return success(data, "操作成功!");
+        return success("操作成功!", data);
     }
 
     public static <T> Response<T> success(String message) {
-        return success(null, message);
+        return success(message, null);
     }
 
-    public static <T> Response<T> fail(T data, String message) {
+    public static <T> Response<T> fail(String message, T data) {
         return new Response<>(message, false, data);
     }
 
     public static <T> Response<T> fail(T data) {
-        return fail(data, "操作失败!");
+        return fail("操作失败!", data);
     }
 
     public static <T> Response<T> fail(String message) {
-        return fail(null, message);
+        return fail(message, null);
     }
 }
