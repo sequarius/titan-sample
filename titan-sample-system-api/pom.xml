@@ -10,20 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>titan-sample-system</artifactId>
+    <artifactId>titan-sample-system-api</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.sequarius</groupId>
-            <artifactId>titan-sample-repository</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sequarius</groupId>
-            <artifactId>titan-sample-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sequarius</groupId>
-            <artifactId>titan-sample-system-api</artifactId>
-        </dependency>
-    </dependencies>
+
 </project>

@@ -14,6 +14,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Page {
-    private Integer start;
+    private Integer begin;
     private Integer length;
 }

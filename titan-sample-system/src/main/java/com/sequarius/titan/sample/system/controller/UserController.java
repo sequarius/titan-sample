@@ -32,7 +32,7 @@ public class UserController {
     @GetMapping("/users")
     @ApiOperation("获取用户列表")
     public Response<List<UserResponseDTO>> list() {
-        return Response.success(userService.listUsers(new Page(0, 10), "xdsjsd"));
+        return Response.success(userService.listUsers(new Page(0, 10), ""));
     }
 
     @GetMapping("/user/{id}")

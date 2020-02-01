@@ -15,6 +15,7 @@
         <module>titan-sample-core</module>
         <module>titan-sample-system</module>
         <module>titan-sample-app</module>
+        <module>titan-sample-system-api</module>
     </modules>
 
     <properties>

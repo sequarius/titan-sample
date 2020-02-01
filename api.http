@@ -7,8 +7,8 @@ Content-Type: application/json
 
 {
   "username": "xdsjsd5",
-  "password": "xdsjs1",
-  "phoneNumber": "17000000000",
+  "password": "xdsjs",
+  "phoneNumber": "170000000001",
   "locked": false
 }
 

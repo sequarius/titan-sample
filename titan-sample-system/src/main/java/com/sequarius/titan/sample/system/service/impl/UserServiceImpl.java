@@ -9,6 +9,7 @@ import com.sequarius.titan.sample.system.domain.UserResponseDTO;
 import com.sequarius.titan.sample.system.service.UserService;
 import com.sequarius.util.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -26,7 +27,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserResponseDTO> listUsers(Page page, String keyword) {
-        return BeanUtils.copyList(userMapper.selectByExample(new SysUserDOExample()), UserResponseDTO.class);
+
+        SysUserDOExample example = new SysUserDOExample();
+        example.setPage(page);
+        if (!StringUtils.isEmpty(keyword)) {
+            example.createCriteria().andUsernameEqualTo(keyword);
+        }
+        return BeanUtils.copyList(userMapper.selectByExample(example), UserResponseDTO.class);
     }
 
     @Override
