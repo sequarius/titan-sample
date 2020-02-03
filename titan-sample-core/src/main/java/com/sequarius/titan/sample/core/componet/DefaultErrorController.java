@@ -7,7 +7,7 @@ package com.sequarius.titan.sample.core.componet;
  * @since 01/02/2020
  */
 
-import com.sequarius.common.Response;
+import com.sequarius.titan.sample.common.Response;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.RequestMapping;

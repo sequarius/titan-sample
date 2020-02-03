@@ -1,4 +1,4 @@
-package com.sequarius.common;
+package com.sequarius.titan.sample.common;
 
 import lombok.Data;
 

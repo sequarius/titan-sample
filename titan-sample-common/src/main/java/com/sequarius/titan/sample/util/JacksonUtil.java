@@ -1,4 +1,4 @@
-package com.sequarius.util;
+package com.sequarius.titan.sample.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

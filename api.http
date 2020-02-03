@@ -1,3 +1,12 @@
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "username": "xdsjsd3",
+  "password": "xdsjsdjsd"
+}
+
+###
 GET http://localhost:8080/system/users
 Accept: application/json
 
@@ -7,8 +16,8 @@ Content-Type: application/json
 
 {
   "username": "xdsjsd5",
-  "password": "xdsjs",
-  "phoneNumber": "170000000001",
+  "password": "xdsjsd",
+  "phoneNumber": "17000000001",
   "locked": false
 }
 
@@ -18,7 +27,7 @@ Content-Type: application/json
 
 [
   25,
-  26
+  28
 ]
 
 ###
@@ -26,13 +35,13 @@ PUT http://localhost:8080/system/user
 Content-Type: application/json
 
 {
-  "id": 20,
-  "phoneNumber": "17000000001",
+  "id": 23,
+  "phoneNumber": "17000000003",
   "locked": true
 }
 
 ###
-GET http://localhost:8080/system/user/25
+GET http://localhost:8080/system/user/1
 Accept: application/json
 
 ###

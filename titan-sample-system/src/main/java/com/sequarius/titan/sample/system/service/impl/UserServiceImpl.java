@@ -1,13 +1,13 @@
 package com.sequarius.titan.sample.system.service.impl;
 
-import com.sequarius.common.Page;
 import com.sequarius.domain.SysUserDO;
 import com.sequarius.domain.SysUserDOExample;
 import com.sequarius.repository.SysUserDOMapper;
+import com.sequarius.titan.sample.common.Page;
 import com.sequarius.titan.sample.system.domain.UserRequestDTO;
 import com.sequarius.titan.sample.system.domain.UserResponseDTO;
 import com.sequarius.titan.sample.system.service.UserService;
-import com.sequarius.util.BeanUtils;
+import com.sequarius.titan.sample.util.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 

@@ -1,9 +1,9 @@
 package com.sequarius.titan.sample.core.auth;
 
-import com.sequarius.common.CurrentUser;
 import com.sequarius.sample.system.api.domain.UserBO;
 import com.sequarius.sample.system.api.service.SystemService;
-import com.sequarius.util.BeanUtils;
+import com.sequarius.titan.sample.common.CurrentUser;
+import com.sequarius.titan.sample.util.BeanUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.PasswordMatcher;

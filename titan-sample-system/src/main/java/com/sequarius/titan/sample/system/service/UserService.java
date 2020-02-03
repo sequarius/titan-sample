@@ -1,6 +1,6 @@
 package com.sequarius.titan.sample.system.service;
 
-import com.sequarius.common.Page;
+import com.sequarius.titan.sample.common.Page;
 import com.sequarius.titan.sample.system.domain.UserRequestDTO;
 import com.sequarius.titan.sample.system.domain.UserResponseDTO;
 

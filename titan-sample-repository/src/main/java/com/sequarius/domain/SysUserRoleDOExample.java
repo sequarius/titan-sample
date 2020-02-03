@@ -1,6 +1,7 @@
 package com.sequarius.domain;
 
-import com.sequarius.common.Page;
+import com.sequarius.titan.sample.common.Page;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

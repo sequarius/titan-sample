@@ -5,7 +5,7 @@ import com.sequarius.domain.SysUserDOExample;
 import com.sequarius.repository.SysUserDOMapper;
 import com.sequarius.sample.system.api.domain.UserBO;
 import com.sequarius.sample.system.api.service.SystemService;
-import com.sequarius.util.BeanUtils;
+import com.sequarius.titan.sample.util.BeanUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

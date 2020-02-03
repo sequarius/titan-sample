@@ -10,7 +10,7 @@
     <context id="DB2Tables" targetRuntime="MyBatis3">
         <plugin type="com.sequarius.generator.mybatis.plugins.LombokPlugin"/>
         <plugin type="com.sequarius.generator.mybatis.plugins.MySQLLimitPlugin">
-            <property name="pageEntityName" value="com.sequarius.common.Page"/>
+            <property name="pageEntityName" value="com.sequarius.titan.sample.common.Page"/>
         </plugin>
         <plugin type="com.sequarius.generator.mybatis.plugins.IgnoreAutoDatePlugin"/>
         <plugin type="com.itfsw.mybatis.generator.plugins.EnumTypeStatusPlugin">
@@ -22,8 +22,8 @@
         <commentGenerator type="com.sequarius.generator.mybatis.plugins.MySQLCommentGenerator">
             <property name="author" value="Michael Chow"/>
             <property name="dateFormat" value="yyyy/MM/dd"/>
-            <property name="filedAnnotationClass" value="com.sequarius.annonation.Filed"/>
-            <property name="entityAnnotationClass" value="com.sequarius.annonation.Entity"/>
+            <property name="filedAnnotationClass" value="com.sequarius.titan.sample.annonation.Filed"/>
+            <property name="entityAnnotationClass" value="com.sequarius.titan.sample.annonation.Entity"/>
         </commentGenerator>
 
         <jdbcConnection driverClass="${sequarius.titan.generator.driverClass}"

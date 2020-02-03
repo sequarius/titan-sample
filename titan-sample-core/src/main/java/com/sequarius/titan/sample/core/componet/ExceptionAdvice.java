@@ -1,6 +1,6 @@
 package com.sequarius.titan.sample.core.componet;
 
-import com.sequarius.common.Response;
+import com.sequarius.titan.sample.common.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;

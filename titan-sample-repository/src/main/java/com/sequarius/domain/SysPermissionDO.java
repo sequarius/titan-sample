@@ -1,9 +1,10 @@
 package com.sequarius.domain;
 
-import com.sequarius.annonation.Entity;
-import com.sequarius.annonation.Filed;
-import java.util.Date;
+import com.sequarius.titan.sample.annonation.Entity;
+import com.sequarius.titan.sample.annonation.Filed;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * 权限

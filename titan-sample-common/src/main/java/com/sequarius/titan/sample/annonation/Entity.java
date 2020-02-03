@@ -1,4 +1,4 @@
-package com.sequarius.annonation;
+package com.sequarius.titan.sample.annonation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -12,9 +12,8 @@ import java.lang.annotation.Target;
  * @since 14/01/2020
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD})
-public @interface Filed {
+@Target({ElementType.TYPE})
+public @interface Entity {
     String name();
     String displayName();
-    int length();
 }

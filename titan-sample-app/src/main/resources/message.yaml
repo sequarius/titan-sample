@@ -1,0 +1,9 @@
+message:
+  common:
+    entityNotFound: 无法找到%s!
+    entityAddSuccess: 新增%s成功!
+    entityUpdateSuccess: 更新%s成功!
+    entityDeleteSuccess: 已成功删除 %d 个%s!
+    entityAddFailed: 新建%s失败，请稍候再试！
+    entityUpdateFailed: 未找到要更新%s，该%s可能已经被其他用户删除，请刷新列表后重试！
+    entityDeleteFailed: 删除失败，%s可能已被其他用户删除,请刷新列表后重试!

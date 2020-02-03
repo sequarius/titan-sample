@@ -1,4 +1,4 @@
-package com.sequarius.util;
+package com.sequarius.titan.sample.util;
 
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;

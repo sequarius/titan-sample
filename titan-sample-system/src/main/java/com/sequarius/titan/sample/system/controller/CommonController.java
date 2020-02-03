@@ -1,6 +1,6 @@
 package com.sequarius.titan.sample.system.controller;
 
-import com.sequarius.common.Response;
+import com.sequarius.titan.sample.common.Response;
 import com.sequarius.titan.sample.system.domain.LoginRequestDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
