@@ -3,6 +3,7 @@ package com.sequarius.titan.sample.core.auth;
 import com.sequarius.sample.system.api.domain.UserBO;
 import com.sequarius.sample.system.api.service.SystemService;
 import com.sequarius.titan.sample.common.CurrentUser;
+import com.sequarius.titan.sample.message.CommonMessage;
 import com.sequarius.titan.sample.util.BeanUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
@@ -23,9 +24,11 @@ import org.springframework.util.StringUtils;
 public class DefaultRealm extends AuthorizingRealm {
     private SystemService systemService;
 
+    private CommonMessage commonMessage;
 
-    public DefaultRealm(SystemService systemService) {
+    public DefaultRealm(SystemService systemService, CommonMessage commonMessage) {
         this.systemService = systemService;
+        this.commonMessage = commonMessage;
         this.setCredentialsMatcher(new PasswordMatcher());
     }
 
@@ -49,13 +52,13 @@ public class DefaultRealm extends AuthorizingRealm {
         UsernamePasswordToken upt = (UsernamePasswordToken) token;
         String userName = upt.getUsername();
         if (StringUtils.isEmpty(userName)) {
-            throw new UnknownAccountException("未找到用户：" + userName + "!");
+            throw new UnknownAccountException(commonMessage.getLoginEmptyUsernameError());
         }
 
 
         UserBO user = systemService.findUser(userName);
         if (user == null) {
-            throw new UnknownAccountException("未找到用户：" + userName + "!");
+            throw new UnknownAccountException(String.format(commonMessage.getLoginUserNotFound(), userName));
         }
 
         CurrentUser currentUser = new CurrentUser();

@@ -28,11 +28,7 @@ import java.util.List;
 @Slf4j
 public class UserController {
 
-    public static final String ENTITY_URL = "/user";
-
-
     public static final String ENTITY_NAME = "用户";
-
 
     @Resource
     private CommonMessage commonMessage;
@@ -56,7 +52,7 @@ public class UserController {
         return Response.success(user);
     }
 
-    @DeleteMapping(ENTITY_URL)
+    @DeleteMapping("/user")
     @ApiOperation("通过id删除用户")
     public Response<UserResponseDTO> removeUser(RequestEntity<List<Long>> ids) {
         Integer result = userService.deleteUser(ids.getBody());
@@ -66,7 +62,7 @@ public class UserController {
         return Response.success(commonMessage.getEntityDeleteSuccess(ENTITY_NAME, result));
     }
 
-    @PostMapping(ENTITY_URL)
+    @PostMapping("/user")
     @ApiOperation("新增用户")
     public Response<String> addUser(@Valid @RequestBody UserRequestDTO requestDTO) {
         if (userService.addUser(requestDTO) > 0) {
@@ -75,7 +71,7 @@ public class UserController {
         return Response.fail(commonMessage.getEntityAddFailed(ENTITY_NAME));
     }
 
-    @PutMapping(ENTITY_URL)
+    @PutMapping("/user")
     @ApiOperation("更新用户")
     public Response<String> updateUser(@RequestBody UserRequestDTO requestDTO) {
         Integer result = userService.updateUser(requestDTO);
@@ -86,7 +82,6 @@ public class UserController {
         if (result == -1) {
             return Response.fail(commonMessage.getEntityNotFound(ENTITY_NAME));
         }
-
         return Response.fail(commonMessage.getEntityUpdateFailed(ENTITY_NAME));
     }
 

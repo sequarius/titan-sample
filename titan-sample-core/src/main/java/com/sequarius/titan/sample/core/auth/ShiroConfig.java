@@ -1,6 +1,7 @@
 package com.sequarius.titan.sample.core.auth;
 
 import com.sequarius.sample.system.api.service.SystemService;
+import com.sequarius.titan.sample.message.CommonMessage;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -24,8 +25,8 @@ import java.util.Map;
 public class ShiroConfig {
 
     @Bean
-    public Realm realm(SystemService systemService) {
-        return new DefaultRealm(systemService);
+    public Realm realm(SystemService systemService, CommonMessage commonMessage) {
+        return new DefaultRealm(systemService, commonMessage);
     }
 
 //    @Bean(name = "securityManager")
@@ -39,14 +40,15 @@ public class ShiroConfig {
 
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager,
-                                                         ShiroFilterChainDefinition shiroFilterChainDefinition) {
+                                                         ShiroFilterChainDefinition shiroFilterChainDefinition,
+                                                         CommonMessage commonMessage) {
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         bean.setSecurityManager(securityManager);
 //        bean.setLoginUrl("/manage/sign_in");
 //        bean.setUnauthorizedUrl("/manage/sign_in");
 
         Map<String, Filter> filters = new HashMap<>();
-        filters.put("rest", new RestApiFilter());
+        filters.put("rest", new RestApiFilter(commonMessage));
         filters.put("anon", new AnonymousFilter());
         bean.setFilters(filters);
 

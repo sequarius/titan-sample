@@ -1,5 +1,6 @@
 package com.sequarius.titan.sample.message;
 
+import com.sequarius.titan.sample.util.Constant;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -13,7 +14,7 @@ import org.springframework.context.annotation.PropertySource;
  * @since 03/02/2020
  */
 @Configuration
-@PropertySource(value = "classpath:message.yaml", factory = YamlPropertySourceFactory.class)
+@PropertySource(value = Constant.MESSAGE_CONFIG_LOCATION, factory = YamlPropertySourceFactory.class)
 @ConfigurationProperties("message.common")
 @Data
 @Slf4j
@@ -25,6 +26,11 @@ public class CommonMessage {
     private String entityAddFailed;
     private String entityUpdateFailed;
     private String entityDeleteFailed;
+
+    private String requireToLogin;
+    private String serviceError;
+    private String loginEmptyUsernameError;
+    private String loginUserNotFound;
 
     public String getEntityUpdateSuccess(String entityName) {
         try {

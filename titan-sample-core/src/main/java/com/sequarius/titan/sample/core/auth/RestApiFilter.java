@@ -1,6 +1,8 @@
 package com.sequarius.titan.sample.core.auth;
 
 import com.sequarius.titan.sample.common.Response;
+import com.sequarius.titan.sample.message.CommonMessage;
+import com.sequarius.titan.sample.util.Constant;
 import com.sequarius.titan.sample.util.JacksonUtil;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
@@ -10,6 +12,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
+
 /**
  * project titan-sample
  *
@@ -18,6 +21,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class RestApiFilter extends FormAuthenticationFilter {
 
+    private CommonMessage commonMessage;
+
+    public RestApiFilter(CommonMessage commonMessage) {
+        this.commonMessage = commonMessage;
+    }
+
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response, Object mappedValue)
             throws Exception {
@@ -25,11 +34,11 @@ public class RestApiFilter extends FormAuthenticationFilter {
         HttpServletResponse httpResponse = WebUtils.toHttp(response);
 
         if (subject == null || !subject.isAuthenticated()) {
-            httpResponse.setCharacterEncoding("UTF-8");
-            httpResponse.setContentType("application/json");
+            httpResponse.setCharacterEncoding(Constant.DEFAULT_CHARSET);
+            httpResponse.setContentType(Constant.CONTENT_TYPE_JSON);
             httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             httpResponse.getWriter().println(JacksonUtil.getObjectMapper()
-                    .writeValueAsString(Response.fail("登陆已过期，请重新登陆！")));
+                    .writeValueAsString(Response.fail(commonMessage.getRequireToLogin())));
             httpResponse.flushBuffer();
         }
 

@@ -2,6 +2,7 @@ package com.sequarius.titan.sample.system.controller;
 
 import com.sequarius.titan.sample.common.Response;
 import com.sequarius.titan.sample.system.domain.LoginRequestDTO;
+import com.sequarius.titan.sample.system.message.SystemMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 
 /**
@@ -21,6 +23,9 @@ import javax.validation.Valid;
 @Slf4j
 public class CommonController {
 
+    @Resource
+    private SystemMessage systemMessage;
+
     @PostMapping("/login")
     public Response<String> login(@Valid @RequestBody LoginRequestDTO requestDTO) {
         try {
@@ -29,13 +34,13 @@ public class CommonController {
             return Response.fail(e.getMessage());
         } catch (IncorrectCredentialsException e) {
             log.error(e.getMessage(), e);
-            return Response.fail("密码错误，请重新输入！");
+            return Response.fail(systemMessage.getLoginPasswordError());
         } catch (ExcessiveAttemptsException e) {
-            return Response.fail("密码输入连续错误5次以上，帐号已被安全锁定10分钟！");
+            return Response.fail(systemMessage.getLoginAccountLock());
         } catch (AuthenticationException e) {
             log.warn("credential fail user{}", requestDTO);
-            return Response.fail("登录失败，请确认用户名密码是否正确！");
+            return Response.fail(systemMessage.getLoginFailed());
         }
-        return Response.success("ok");
+        return Response.success(systemMessage.getLoginSuccess());
     }
 }

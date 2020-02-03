@@ -1,6 +1,7 @@
 package com.sequarius.titan.sample.core.componet;
 
 import com.sequarius.titan.sample.common.Response;
+import com.sequarius.titan.sample.message.CommonMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
@@ -25,6 +27,9 @@ public class ExceptionAdvice {
 
     private AtomicLong errorReportNum;
 
+    @Resource
+    private CommonMessage commonMessage;
+
     @PostConstruct
     public void init() {
         errorReportNum = new AtomicLong(10000);
@@ -36,7 +41,7 @@ public class ExceptionAdvice {
     public Response<String> uncatchedException(Exception e) {
         Long errorNumber = errorReportNum.incrementAndGet();
         log.error("exception happen：code = " + errorNumber + " , message = " + e.getMessage(), e);
-        return Response.fail(String.format("服务异常:错误回执号[%d],请提供该回执号给管理员获得更多帮助！", errorNumber));
+        return Response.fail(String.format(commonMessage.getServiceError(), errorNumber));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
