@@ -22,6 +22,7 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl implements UserService {
+
     @Resource
     private SysUserDOMapper userMapper;
 
@@ -37,7 +38,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer addUser(UserRequestDTO requestDTO) {
+    public Integer saveUser(UserRequestDTO requestDTO) {
         SysUserDO sysUserDO = new SysUserDO();
         BeanUtils.copyProperties(requestDTO, sysUserDO);
         return userMapper.insertSelective(sysUserDO);
@@ -65,7 +66,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer deleteUser(List<Long> ids) {
+    public Integer removeUser(List<Long> ids) {
         SysUserDOExample example = new SysUserDOExample();
         example.createCriteria().andIdIn(ids);
         return userMapper.deleteByExample(example);

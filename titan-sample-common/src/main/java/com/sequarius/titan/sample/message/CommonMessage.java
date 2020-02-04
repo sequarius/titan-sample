@@ -20,12 +20,12 @@ import org.springframework.context.annotation.PropertySource;
 @Slf4j
 public class CommonMessage {
     private String entityNotFound;
-    private String entityAddSuccess;
+    private String entitySaveSuccess;
     private String entityUpdateSuccess;
-    private String entityDeleteSuccess;
-    private String entityAddFailed;
+    private String entityRemoveSuccess;
+    private String entitySaveFailed;
     private String entityUpdateFailed;
-    private String entityDeleteFailed;
+    private String entityRemoveFailed;
 
     private String requireToLogin;
     private String serviceError;
@@ -51,30 +51,30 @@ public class CommonMessage {
     }
 
 
-    public String getEntityAddSuccess(String entityName) {
+    public String getEntitySaveSuccess(String entityName) {
         try {
-            return String.format(entityAddSuccess, entityName);
+            return String.format(entitySaveSuccess, entityName);
         } catch (Exception e) {
             log.warn(e.getMessage(), e);
-            return entityAddSuccess;
+            return entitySaveSuccess;
         }
     }
 
-    public String getEntityDeleteSuccess(String entityName, Integer deleteCount) {
+    public String getEntityRemoveSuccess(String entityName, Integer deleteCount) {
         try {
-            return String.format(entityDeleteSuccess, deleteCount, entityName);
+            return String.format(entityRemoveSuccess, deleteCount, entityName);
         } catch (Exception e) {
             log.warn(e.getMessage(), e);
-            return entityDeleteSuccess;
+            return entityRemoveSuccess;
         }
     }
 
-    public String getEntityAddFailed(String entityName) {
+    public String getEntitySaveFailed(String entityName) {
         try {
-            return String.format(entityAddFailed, entityName);
+            return String.format(entitySaveFailed, entityName);
         } catch (Exception e) {
             log.warn(e.getMessage(), e);
-            return entityAddFailed;
+            return entitySaveFailed;
         }
     }
 
@@ -87,12 +87,12 @@ public class CommonMessage {
         }
     }
 
-    public String getEntityDeleteFailed(String entityName) {
+    public String getEntityRemoveFailed(String entityName) {
         try {
-            return String.format(entityDeleteFailed, entityName);
+            return String.format(entityRemoveFailed, entityName);
         } catch (Exception e) {
             log.warn(e.getMessage(), e);
-            return entityDeleteFailed;
+            return entityRemoveFailed;
         }
     }
 }

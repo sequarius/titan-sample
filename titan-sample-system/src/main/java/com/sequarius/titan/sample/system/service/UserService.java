@@ -10,11 +10,11 @@ import java.util.List;
 public interface UserService {
     List<UserResponseDTO> listUsers(Page page, String keyword);
 
-    Integer addUser(UserRequestDTO requestDTO);
+    Integer saveUser(UserRequestDTO requestDTO);
 
     Integer updateUser(UserRequestDTO requestDTO);
 
     UserResponseDTO findUser(Long id);
 
-    Integer deleteUser(List<Long> ids);
+    Integer removeUser(List<Long> ids);
 }

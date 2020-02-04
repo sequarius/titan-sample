@@ -38,14 +38,14 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/users")
-    @ApiOperation("获取用户列表")
+    @ApiOperation("查看用户列表")
     @RequiresPermissions("system:user:view")
     public Response<List<UserResponseDTO>> list() {
         return Response.success(userService.listUsers(new Page(0, 10), ""));
     }
 
     @GetMapping("/user/{id}")
-    @ApiOperation("通过id获取用户")
+    @ApiOperation("查看用户")
     @RequiresPermissions("system:user:view")
     public Response<UserResponseDTO> findUser(@PathVariable Long id) {
         UserResponseDTO user = userService.findUser(id);
@@ -56,24 +56,24 @@ public class UserController {
     }
 
     @DeleteMapping("/user")
-    @ApiOperation("通过id删除用户")
-    @RequiresPermissions("system:user:delete")
+    @ApiOperation("删除用户")
+    @RequiresPermissions("system:user:remove")
     public Response<UserResponseDTO> removeUser(RequestEntity<List<Long>> ids) {
-        Integer result = userService.deleteUser(ids.getBody());
+        Integer result = userService.removeUser(ids.getBody());
         if (result < 1) {
-            return Response.fail(commonMessage.getEntityDeleteFailed(ENTITY_NAME));
+            return Response.fail(commonMessage.getEntityRemoveFailed(ENTITY_NAME));
         }
-        return Response.success(commonMessage.getEntityDeleteSuccess(ENTITY_NAME, result));
+        return Response.success(commonMessage.getEntityRemoveSuccess(ENTITY_NAME, result));
     }
 
     @PostMapping("/user")
     @ApiOperation("新增用户")
-    @RequiresPermissions("system:user:add")
+    @RequiresPermissions("system:user:save")
     public Response<String> addUser(@Valid @RequestBody UserRequestDTO requestDTO) {
-        if (userService.addUser(requestDTO) > 0) {
-            return Response.success(commonMessage.getEntityAddSuccess(ENTITY_NAME));
+        if (userService.saveUser(requestDTO) > 0) {
+            return Response.success(commonMessage.getEntitySaveSuccess(ENTITY_NAME));
         }
-        return Response.fail(commonMessage.getEntityAddFailed(ENTITY_NAME));
+        return Response.fail(commonMessage.getEntitySaveFailed(ENTITY_NAME));
     }
 
     @PutMapping("/user")
