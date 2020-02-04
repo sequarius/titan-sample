@@ -9,6 +9,7 @@ import com.sequarius.titan.sample.system.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.http.RequestEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,12 +39,14 @@ public class UserController {
 
     @GetMapping("/users")
     @ApiOperation("获取用户列表")
+    @RequiresPermissions("system:user:view")
     public Response<List<UserResponseDTO>> list() {
         return Response.success(userService.listUsers(new Page(0, 10), ""));
     }
 
     @GetMapping("/user/{id}")
     @ApiOperation("通过id获取用户")
+    @RequiresPermissions("system:user:view")
     public Response<UserResponseDTO> findUser(@PathVariable Long id) {
         UserResponseDTO user = userService.findUser(id);
         if (user == null) {
@@ -54,6 +57,7 @@ public class UserController {
 
     @DeleteMapping("/user")
     @ApiOperation("通过id删除用户")
+    @RequiresPermissions("system:user:delete")
     public Response<UserResponseDTO> removeUser(RequestEntity<List<Long>> ids) {
         Integer result = userService.deleteUser(ids.getBody());
         if (result < 1) {
@@ -64,6 +68,7 @@ public class UserController {
 
     @PostMapping("/user")
     @ApiOperation("新增用户")
+    @RequiresPermissions("system:user:add")
     public Response<String> addUser(@Valid @RequestBody UserRequestDTO requestDTO) {
         if (userService.addUser(requestDTO) > 0) {
             return Response.success(commonMessage.getEntityAddSuccess(ENTITY_NAME));
@@ -73,6 +78,7 @@ public class UserController {
 
     @PutMapping("/user")
     @ApiOperation("更新用户")
+    @RequiresPermissions("system:user:update")
     public Response<String> updateUser(@RequestBody UserRequestDTO requestDTO) {
         Integer result = userService.updateUser(requestDTO);
         if (result > 0) {
