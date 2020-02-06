@@ -8,6 +8,7 @@ import com.sequarius.titan.sample.repository.SysUserDOMapper;
 import com.sequarius.titan.sample.system.domain.UserRequestDTO;
 import com.sequarius.titan.sample.system.domain.UserResponseDTO;
 import com.sequarius.titan.sample.system.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -21,6 +22,7 @@ import java.util.List;
  * @since 30/01/2020
  */
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     @Resource
@@ -28,11 +30,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserResponseDTO> listUsers(Page page, String keyword) {
-
         SysUserDOExample example = new SysUserDOExample();
         example.setPage(page);
         if (!StringUtils.isEmpty(keyword)) {
-            example.createCriteria().andUsernameEqualTo(keyword);
+            example.or().andDeletedEqualTo(false).andUsernameLike(keyword + "%");
+            example.or().andDeletedEqualTo(false).andPhoneNumberLike(keyword+"%");
         }
         return BeanUtils.copyList(userMapper.selectByExample(example), UserResponseDTO.class);
     }
@@ -67,12 +69,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Integer removeUser(List<Long> ids) {
+        SysUserDO sysUserDO = new SysUserDO();
+        sysUserDO.setDeleted(true);
         SysUserDOExample example = new SysUserDOExample();
-        example.createCriteria().andIdIn(ids);
-        return userMapper.deleteByExample(example);
+        example.createCriteria().andIdIn(ids).andDeletedEqualTo(false);
+        return userMapper.updateByExampleSelective(sysUserDO,example);
     }
 
     private SysUserDO findUserDOById(Long id) {
-        return userMapper.selectByPrimaryKey(id);
+        SysUserDOExample example = new SysUserDOExample();
+        example.createCriteria().andDeletedEqualTo(false).andIdEqualTo(id);
+        List<SysUserDO> sysUserDOS = userMapper.selectByExample(example);
+        if (sysUserDOS.size() != 1) {
+            log.warn("try to find {} with id {}, but find {}","SysUserDO",id,sysUserDOS);
+            return null;
+        }
+        return sysUserDOS.get(0);
     }
 }

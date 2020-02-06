@@ -67,7 +67,8 @@
         </layout>
     </appender>
 
-    <logger name="jdbc.sqltiming" additivity="false">
+    <logger name = "jdbc" level="ERROR" additivity="false"/>
+    <logger name="jdbc.sqltiming" level="INFO" additivity="false">
         <appender-ref ref="jdbc.sqltiming"/>
     </logger>
 
