@@ -1,10 +1,11 @@
 package com.sequarius.titan.sample.core.componet;
 
 import com.sequarius.titan.sample.common.Response;
-import com.sequarius.titan.sample.message.CommonMessage;
+import com.sequarius.titan.sample.common.message.CommonMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -50,6 +51,14 @@ public class ExceptionAdvice {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
     public Response<String> validaException(MethodArgumentNotValidException e) {
+        List<String> errorMessages = e.getBindingResult().getAllErrors().stream()
+                .map(ObjectError::getDefaultMessage).collect(Collectors.toList());
+        return Response.fail(String.join(" , ", errorMessages));
+    }
+
+    @ExceptionHandler(BindException.class)
+    @ResponseBody
+    public Response<String> validaException(BindException e) {
         List<String> errorMessages = e.getBindingResult().getAllErrors().stream()
                 .map(ObjectError::getDefaultMessage).collect(Collectors.toList());
         return Response.fail(String.join(" , ", errorMessages));

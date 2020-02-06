@@ -1,11 +1,11 @@
 package com.sequarius.titan.sample.system.api;
 
-import com.sequarius.domain.SysUserDO;
-import com.sequarius.domain.SysUserDOExample;
-import com.sequarius.repository.SysUserDOMapper;
 import com.sequarius.sample.system.api.domain.UserBO;
 import com.sequarius.sample.system.api.service.SystemService;
-import com.sequarius.titan.sample.util.BeanUtils;
+import com.sequarius.titan.sample.common.util.BeanUtils;
+import com.sequarius.titan.sample.domain.SysUserDO;
+import com.sequarius.titan.sample.domain.SysUserDOExample;
+import com.sequarius.titan.sample.repository.SysUserDOMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

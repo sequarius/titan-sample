@@ -3,8 +3,8 @@ package com.sequarius.titan.sample.core.auth;
 import com.sequarius.sample.system.api.domain.UserBO;
 import com.sequarius.sample.system.api.service.SystemService;
 import com.sequarius.titan.sample.common.CurrentUser;
-import com.sequarius.titan.sample.message.CommonMessage;
-import com.sequarius.titan.sample.util.BeanUtils;
+import com.sequarius.titan.sample.common.message.CommonMessage;
+import com.sequarius.titan.sample.common.util.BeanUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.PasswordMatcher;
@@ -13,6 +13,8 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.util.StringUtils;
+
+import java.util.TreeSet;
 
 /**
  * project titan-sample
@@ -42,7 +44,9 @@ public class DefaultRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 
         info.setRoles(user.getRoles());
-        info.setStringPermissions(user.getPermissions());
+        info.setStringPermissions(new TreeSet<String>(){{
+            add("*:*:*");
+        }});
 
         return info;
     }

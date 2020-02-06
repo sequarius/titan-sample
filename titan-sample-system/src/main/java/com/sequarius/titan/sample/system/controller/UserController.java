@@ -2,7 +2,7 @@ package com.sequarius.titan.sample.system.controller;
 
 import com.sequarius.titan.sample.common.Page;
 import com.sequarius.titan.sample.common.Response;
-import com.sequarius.titan.sample.message.CommonMessage;
+import com.sequarius.titan.sample.common.message.CommonMessage;
 import com.sequarius.titan.sample.system.domain.UserRequestDTO;
 import com.sequarius.titan.sample.system.domain.UserResponseDTO;
 import com.sequarius.titan.sample.system.service.UserService;
@@ -40,8 +40,8 @@ public class UserController {
     @GetMapping("/users")
     @ApiOperation("查看用户列表")
     @RequiresPermissions("system:user:view")
-    public Response<List<UserResponseDTO>> list() {
-        return Response.success(userService.listUsers(new Page(0, 10), ""));
+    public Response<List<UserResponseDTO>> list(@Valid Page page,String keyword) {
+        return Response.success(userService.listUsers(page, keyword));
     }
 
     @GetMapping("/user/{id}")

@@ -22,8 +22,8 @@
         <commentGenerator type="com.sequarius.generator.mybatis.plugins.MySQLCommentGenerator">
             <property name="author" value="Michael Chow"/>
             <property name="dateFormat" value="yyyy/MM/dd"/>
-            <property name="filedAnnotationClass" value="com.sequarius.titan.sample.annonation.Filed"/>
-            <property name="entityAnnotationClass" value="com.sequarius.titan.sample.annonation.Entity"/>
+            <property name="filedAnnotationClass" value="com.sequarius.titan.sample.common.annonation.Filed"/>
+            <property name="entityAnnotationClass" value="com.sequarius.titan.sample.common.annonation.Entity"/>
         </commentGenerator>
 
         <jdbcConnection driverClass="${sequarius.titan.generator.driverClass}"

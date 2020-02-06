@@ -1,7 +1,7 @@
 package com.sequarius.titan.sample.system.message;
 
-import com.sequarius.titan.sample.message.YamlPropertySourceFactory;
-import com.sequarius.titan.sample.util.Constant;
+import com.sequarius.titan.sample.common.message.YamlPropertySourceFactory;
+import com.sequarius.titan.sample.common.util.Constant;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;

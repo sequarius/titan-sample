@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 30/01/2020
  */
 @SpringBootApplication()
-@MapperScan(basePackages = "com.sequarius.**.repository")
+@MapperScan(basePackages = "com.sequarius.titan.sample.**.repository")
 public class SampleApplication {
     public static void main(String[] args) {
         SpringApplication.run(SampleApplication.class, args);

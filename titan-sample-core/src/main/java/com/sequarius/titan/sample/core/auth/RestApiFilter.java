@@ -1,9 +1,9 @@
 package com.sequarius.titan.sample.core.auth;
 
 import com.sequarius.titan.sample.common.Response;
-import com.sequarius.titan.sample.message.CommonMessage;
-import com.sequarius.titan.sample.util.Constant;
-import com.sequarius.titan.sample.util.JacksonUtil;
+import com.sequarius.titan.sample.common.message.CommonMessage;
+import com.sequarius.titan.sample.common.util.Constant;
+import com.sequarius.titan.sample.common.util.JacksonUtil;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;

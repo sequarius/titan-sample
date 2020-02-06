@@ -1,7 +1,7 @@
 package com.sequarius.titan.sample.core.auth;
 
 import com.sequarius.sample.system.api.service.SystemService;
-import com.sequarius.titan.sample.message.CommonMessage;
+import com.sequarius.titan.sample.common.message.CommonMessage;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
