@@ -1,5 +1,7 @@
 package com.sequarius.titan.sample.common;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -9,9 +11,16 @@ import lombok.Data;
  * @since 31/01/2020
  */
 @Data
+@ApiModel("通用响应体")
 public class Response<T> {
+
+    @ApiModelProperty("消息")
     private String message;
+
+    @ApiModelProperty("操作结果")
     private Boolean result;
+
+    @ApiModelProperty("响应数据")
     private T data;
 
     private Response(String message, Boolean result, T data) {

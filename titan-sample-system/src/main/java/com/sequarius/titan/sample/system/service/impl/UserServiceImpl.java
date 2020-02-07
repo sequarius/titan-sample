@@ -1,6 +1,7 @@
 package com.sequarius.titan.sample.system.service.impl;
 
 import com.sequarius.titan.sample.common.Page;
+import com.sequarius.titan.sample.common.PageData;
 import com.sequarius.titan.sample.common.util.BeanUtils;
 import com.sequarius.titan.sample.domain.SysUserDO;
 import com.sequarius.titan.sample.domain.SysUserDOExample;
@@ -29,14 +30,16 @@ public class UserServiceImpl implements UserService {
     private SysUserDOMapper userMapper;
 
     @Override
-    public List<UserResponseDTO> listUsers(Page page, String keyword) {
+    public PageData<UserResponseDTO> listUsers(Page page, String keyword) {
         SysUserDOExample example = new SysUserDOExample();
         example.setPage(page);
         if (!StringUtils.isEmpty(keyword)) {
             example.or().andDeletedEqualTo(false).andUsernameLike(keyword + "%");
             example.or().andDeletedEqualTo(false).andPhoneNumberLike(keyword+"%");
         }
-        return BeanUtils.copyList(userMapper.selectByExample(example), UserResponseDTO.class);
+        List<UserResponseDTO> data = BeanUtils.copyList(userMapper.selectByExample(example), UserResponseDTO.class);
+        long totalCount = userMapper.countByExample(example);
+        return new PageData<>(data,totalCount,page);
     }
 
     @Override
