@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Divider, Popconfirm } from 'antd';
 import ProTable from '@ant-design/pro-table';
-import styles from './index.less';
 import UserModal from '../UserModal';
 import { connect } from 'dva';
 import { Pagination } from 'antd';
 import router from 'umi/router';
 
-const DefaultTable = ({ dispatch, systemUser }) => {
+const UserTable = ({ dispatch, systemUser, loading }) => {
+  const isLoading = loading.effects['systemUser/list'];
+
+  const ref = useRef();
+
+  useEffect(() => {
+    console.log('useRef');
+    console.log(ref.current);
+    ref.current.reload = dispatch({
+      type: 'systemUser/list',
+      payload: { page: 1 },
+    });
+  }, []);
+
   const columns = [
     {
       title: 'id',
@@ -55,7 +67,6 @@ const DefaultTable = ({ dispatch, systemUser }) => {
   }
 
   function pageChangedHandler(page) {
-    console.log(page);
     router.push({
       pathname: '/system/users',
       query: { page },
@@ -63,15 +74,18 @@ const DefaultTable = ({ dispatch, systemUser }) => {
   }
 
   return (
-    <div className={styles.container}>
+    <div>
       <div id="components-table-demo-basic">
         <ProTable
+          rowKey="id"
+          actionRef={ref}
           pagination={false}
           total={systemUser.total}
           toolBarRender={(action, { selectedRows }) => [<UserModal />]}
           headerTitle="用户列表"
           search={false}
           columns={columns}
+          loading={isLoading}
           dataSource={systemUser.list}
         />
         <Pagination
@@ -85,6 +99,7 @@ const DefaultTable = ({ dispatch, systemUser }) => {
     </div>
   );
 };
-export default connect(({ systemUser }) => ({
+export default connect(({ systemUser, loading }) => ({
   systemUser,
-}))(DefaultTable);
+  loading,
+}))(UserTable);

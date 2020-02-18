@@ -10,8 +10,11 @@ const layout = {
 
 // import { connect } from 'puppeteer';
 
-const UserModal = ({ dispatch, systemUser }) => {
+const UserModal = ({ dispatch, systemUser, loading }) => {
   const [form] = Form.useForm();
+
+  const upadteLoading = loading.effects['systemUser/updateUser'];
+  const saveLoading = loading.effects['systemUser/saveUser'];
 
   function showModal() {
     dispatch({
@@ -21,7 +24,10 @@ const UserModal = ({ dispatch, systemUser }) => {
   }
 
   useEffect(() => {
-    form.setFieldsValue({ user: systemUser.user });
+    if (systemUser.user !== null) {
+      form.resetFields();
+      form.setFieldsValue({ user: systemUser.user });
+    }
   });
 
   function handleOk() {
@@ -45,12 +51,14 @@ const UserModal = ({ dispatch, systemUser }) => {
       .catch(err => console.log(err));
   }
 
-  function handleCancel(e) {
+  function handleCancel() {
+    if (upadteLoading || saveLoading) {
+      return;
+    }
     dispatch({
       type: 'systemUser/setUser',
       payload: { user: null },
     });
-    Modal.destroyAll();
   }
 
   return (
@@ -64,6 +72,8 @@ const UserModal = ({ dispatch, systemUser }) => {
         onOk={handleOk}
         maskClosable={false}
         forceRender={true}
+        confirmLoading={upadteLoading || saveLoading}
+        cancelButtonProps={{ disabled: upadteLoading || saveLoading }}
         onCancel={handleCancel}
       >
         <Form {...layout} form={form} name="system-user-from">
@@ -88,6 +98,7 @@ const UserModal = ({ dispatch, systemUser }) => {
   );
 };
 
-export default connect(({ systemUser }) => ({
+export default connect(({ systemUser, loading }) => ({
   systemUser,
+  loading,
 }))(UserModal);

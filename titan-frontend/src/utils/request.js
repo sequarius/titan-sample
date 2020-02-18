@@ -4,6 +4,8 @@
  */
 import { extend } from 'umi-request';
 import { notification } from 'antd';
+import { router } from 'umi';
+
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -31,6 +33,15 @@ const errorHandler = error => {
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;
     const { status, url } = response;
+    if (status == 401) {
+      router.push('/login');
+      notification.warn({
+        description: '您已有30分钟没有进行任何操作，为了您的账号安全系统已自动退出！',
+        message: '请重新登陆',
+      });
+      return;
+    }
+
     notification.error({
       message: `请求错误 ${status}: ${url}`,
       description: errorText,
@@ -56,7 +67,6 @@ const request = extend({
 });
 
 request.interceptors.response.use(async (response, options) => {
-  console.log(options);
   if (options.showMessage != undefined && !options.showMessage) {
     return response;
   }

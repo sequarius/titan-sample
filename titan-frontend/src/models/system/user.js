@@ -7,50 +7,35 @@ const UserModel = {
     total: null,
     current: null,
     user: null,
+    listLoading: false,
   },
   effects: {
     *list({ payload: { page = 1 } }, { call, put }) {
-      console.log(page);
       const response = yield call(listUser, {
         begin: (page - 1) * DEFAUNT_PAGE_SIZE,
         length: DEFAUNT_PAGE_SIZE,
       });
-      console.log(response);
       if (response.result) {
         yield put({
           type: 'save',
-          payload: {
-            ...response.data,
-          },
+          payload: { ...response.data },
         });
       }
     },
     *saveUser({ payload: { user } }, { call, put, select }) {
-      console.log(user);
       const response = yield call(saveUser, user);
       if (response.result) {
         const page = yield select(state => state.systemUser.current);
         yield put({ type: 'list', payload: { page } });
-        yield put({
-          type: 'setUser',
-          payload: {
-            user: null,
-          },
-        });
+        yield put({ type: 'setUser', payload: { user: null } });
       }
     },
     *updateUser({ payload: { user } }, { call, put, select }) {
-      console.log(user);
       const response = yield call(updateUser, user);
       if (response.result) {
         const page = yield select(state => state.systemUser.current);
         yield put({ type: 'list', payload: { page } });
-        yield put({
-          type: 'setUser',
-          payload: {
-            user: null,
-          },
-        });
+        yield put({ type: 'setUser', payload: { user: null } });
       }
     },
     *removeUser({ payload: { id } }, { call, put, select }) {
@@ -69,15 +54,16 @@ const UserModel = {
     setUser(state, { payload: { user } }) {
       return { ...state, user };
     },
+    setListLoading(state, { payload: { loading } }) {
+      listLoading = loading;
+      return { ...state, listLoading };
+    },
   },
   subscriptions: {
     setup({ dispatch, history }) {
       history.listen(({ pathname, query }) => {
         if (pathname === '/system/users') {
-          dispatch({
-            type: 'list',
-            payload: query,
-          });
+          dispatch({ type: 'list', payload: query });
         }
       });
     },
