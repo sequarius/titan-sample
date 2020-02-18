@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { Modal, Button, Form, Input, InputNumber } from 'antd';
-import styles from './index.less';
+import React, { useEffect } from 'react';
+import { Modal, Button, Form, Input, InputNumber, Switch } from 'antd';
 
 import { connect } from 'dva';
 
@@ -11,73 +10,84 @@ const layout = {
 
 // import { connect } from 'puppeteer';
 
-function UserModal() {
-
-  const [visible, setVisible] = useState(false);
-
+const UserModal = ({ dispatch, systemUser }) => {
   const [form] = Form.useForm();
 
   function showModal() {
-    setVisible(true)
-  };
-
-  function handleOk() {
-    form.validateFields().then(() => {
-      form.submit();
-      setVisible(false)
-    }).catch(err=>console.log(err));
-  };
-
-  function handleCancel(e) {
-    console.log(e);
-    setVisible(false);
-  };
-
-  function onFinish(values) {
-    console.log(values);
+    dispatch({
+      type: 'systemUser/setUser',
+      payload: { user: {} },
+    });
   }
 
+  useEffect(() => {
+    form.setFieldsValue({ user: systemUser.user });
+  });
+
+  function handleOk() {
+    form
+      .validateFields()
+      .then(values => {
+        form.submit();
+        if (systemUser.user?.id) {
+          values.user.id = systemUser.user.id;
+          dispatch({
+            type: 'systemUser/updateUser',
+            payload: values,
+          });
+        } else {
+          dispatch({
+            type: 'systemUser/saveUser',
+            payload: values,
+          });
+        }
+      })
+      .catch(err => console.log(err));
+  }
+
+  function handleCancel(e) {
+    dispatch({
+      type: 'systemUser/setUser',
+      payload: { user: null },
+    });
+    Modal.destroyAll();
+  }
 
   return (
     <div>
       <Button type="primary" onClick={showModal}>
         新建用户
-        </Button>
+      </Button>
       <Modal
-        title="Basic Modal"
-        visible={visible}
+        title={(systemUser?.user?.id ? '修改' : '新增') + '用户'}
+        visible={systemUser.user !== null}
         onOk={handleOk}
+        maskClosable={false}
+        forceRender={true}
         onCancel={handleCancel}
       >
-        <Form {...layout} form={form} name="nest-messages" onFinish={onFinish}>
-          <Form.Item name={['user', 'name']} label="用户名" rules={[{ required: true }]}>
+        <Form {...layout} form={form} name="system-user-from">
+          <Form.Item name={['user', 'username']} label="用户名" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
-          <Form.Item name={['user', 'email']} label="密码">
+          <Form.Item name={['user', 'password']} label="密码">
+            <Input />
+          </Form.Item>
+          <Form.Item name={['user', 'phoneNumber']} label="手机号" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
           <Form.Item name={['user', 'age']} label="年龄">
             <InputNumber />
           </Form.Item>
-          <Form.Item name={['user', 'website']} label="部门">
-            <Input />
-          </Form.Item>
-          <Form.Item name={['user', 'introduction']} label="Introduction">
-            <Input.TextArea />
+          <Form.Item name={['user', 'locked']} label="冻结" valuePropName="checked">
+            <Switch />
           </Form.Item>
         </Form>
       </Modal>
     </div>
   );
+};
 
-}
-
-
-// export default FormWapper
-export default () => (
-  <div className={styles.container}>
-    <div id="components-modal-demo-basic">
-      <UserModal />
-    </div>
-  </div>
-);
+export default connect(({ systemUser }) => ({
+  systemUser,
+}))(UserModal);

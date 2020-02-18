@@ -1,3 +1,5 @@
+GET http://localhost:8080/login?username=xdsjsd3&password=xdsjsdjsd
+###
 POST http://localhost:8080/login
 Content-Type: application/json
 
@@ -15,7 +17,7 @@ POST http://localhost:8080/system/user
 Content-Type: application/json
 
 {
-  "username": "xdsjsd5",
+  "username": "xdsjsd15",
   "password": "xdsjsd",
   "phoneNumber": "17000000001",
   "locked": false

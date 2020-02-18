@@ -36,6 +36,8 @@ public class UserServiceImpl implements UserService {
         if (!StringUtils.isEmpty(keyword)) {
             example.or().andDeletedEqualTo(false).andUsernameLike(keyword + "%");
             example.or().andDeletedEqualTo(false).andPhoneNumberLike(keyword+"%");
+        }else{
+            example.or().andDeletedNotEqualTo(false);
         }
         List<UserResponseDTO> data = BeanUtils.copyList(userMapper.selectByExample(example), UserResponseDTO.class);
         long totalCount = userMapper.countByExample(example);

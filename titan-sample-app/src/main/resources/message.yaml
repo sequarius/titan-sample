@@ -11,6 +11,7 @@ message:
     loginEmptyUsernameError: 用户名为空!
     loginUserNotFound: 未找到用户：%s!
     serviceError: 服务异常:错误回执号[%d],请提供该回执号给管理员获得更多帮助！
+    emptyId: 无法完成请求：请求缺失id！
   system:
     loginPasswordError: 密码错误，请重新输入！
     loginAccountLock: 密码输入连续错误5次以上，帐号已被安全锁定10分钟！

@@ -55,21 +55,25 @@ const request = extend({
   credentials: 'include', // 默认请求是否带上cookie
 });
 
-request.interceptors.response.use(async (response) => {
+request.interceptors.response.use(async (response, options) => {
+  console.log(options);
+  if (options.showMessage != undefined && !options.showMessage) {
+    return response;
+  }
   const data = await response.clone().json();
-  if(data && !data.result) {
+  if (data && !data.result) {
     notification.error({
       description: data.message,
       message: '错误',
     });
   }
-  if(data && data.result) {
+  if (data && data.result) {
     notification.success({
       description: data.message,
       message: '提示',
     });
   }
   return response;
-})
+});
 
 export default request;

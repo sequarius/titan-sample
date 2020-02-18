@@ -1,10 +1,10 @@
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import React, { useState, useEffect } from 'react';
 import { Spin } from 'antd';
-import styles from './index.less';
 import DefualtTable from './components/DefualtTable';
-import UserModal from './components/UserModal';
-export default () => {
+import { connect } from 'dva';
+
+const UserPage = ({ systemUser }) => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {
@@ -13,9 +13,8 @@ export default () => {
   }, []);
   return (
     <PageHeaderWrapper
-      // className={styles.main}
+    // className={styles.main}
     >
-      <UserModal />
       <DefualtTable />
       <div
         style={{
@@ -28,3 +27,7 @@ export default () => {
     </PageHeaderWrapper>
   );
 };
+
+export default connect(({ systemUser }) => ({
+  systemUser,
+}))(UserPage);

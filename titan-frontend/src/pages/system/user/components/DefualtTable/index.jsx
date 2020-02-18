@@ -1,85 +1,90 @@
 import React from 'react';
-import { Table, Divider, Tag } from 'antd';
+import { Divider, Popconfirm } from 'antd';
+import ProTable from '@ant-design/pro-table';
 import styles from './index.less';
+import UserModal from '../UserModal';
+import { connect } from 'dva';
+import { Pagination } from 'antd';
+import router from 'umi/router';
 
-const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-    render: text => <a>{text}</a>,
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-  {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
-    render: tags => (
-      <span>
-        {tags.map(tag => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
+const DefaultTable = ({ dispatch, systemUser }) => {
+  const columns = [
+    {
+      title: 'id',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    {
+      title: '用户名',
+      dataIndex: 'username',
+      key: 'username',
+      render: text => <a>{text}</a>,
+    },
+    {
+      title: '电话号码',
+      dataIndex: 'phoneNumber',
+      key: 'phoneNumber',
+    },
+    {
+      title: '操作',
+      key: 'id',
+      render: (text, record) => (
+        <span>
+          <a onClick={() => updateUserHandler(record)}>修改</a>
+          <Divider type="vertical" />
+          <Popconfirm title="确认删除?" onConfirm={() => removeUserHandler(record.id)}>
+            <a>删除</a>
+          </Popconfirm>
+        </span>
+      ),
+    },
+  ];
 
-          if (tag === 'loser') {
-            color = 'volcano';
-          }
+  function removeUserHandler(id) {
+    dispatch({
+      type: 'systemUser/removeUser',
+      payload: { id },
+    });
+  }
 
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </span>
-    ),
-  },
-  {
-    title: 'Action',
-    key: 'action',
-    render: (text, record) => (
-      <span>
-        <a>Invite {record.name}</a>
-        <Divider type="vertical" />
-        <a>Delete</a>
-      </span>
-    ),
-  },
-];
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-];
-export default () => (
-  <div className={styles.container}>
-    <div id="components-table-demo-basic">
-      <Table columns={columns} dataSource={data} />
+  function updateUserHandler(record) {
+    dispatch({
+      type: 'systemUser/setUser',
+      payload: { user: record },
+    });
+  }
+
+  function pageChangedHandler(page) {
+    console.log(page);
+    router.push({
+      pathname: '/system/users',
+      query: { page },
+    });
+  }
+
+  return (
+    <div className={styles.container}>
+      <div id="components-table-demo-basic">
+        <ProTable
+          pagination={false}
+          total={systemUser.total}
+          toolBarRender={(action, { selectedRows }) => [<UserModal />]}
+          headerTitle="用户列表"
+          search={false}
+          columns={columns}
+          dataSource={systemUser.list}
+        />
+        <Pagination
+          className="ant-table-pagination"
+          onChange={pageChangedHandler}
+          defaultCurrent={6}
+          total={systemUser.total}
+          current={systemUser.current}
+        />
+      </div>
     </div>
-  </div>
-);
+  );
+};
+export default connect(({ systemUser }) => ({
+  systemUser,
+}))(DefaultTable);

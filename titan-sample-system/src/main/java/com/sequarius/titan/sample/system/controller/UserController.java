@@ -60,6 +60,9 @@ public class UserController {
     @ApiOperation("删除用户")
     @RequiresPermissions("system:user:remove")
     public Response<UserResponseDTO> removeUser(RequestEntity<List<Long>> ids) {
+        if (ids.getBody() == null || ids.getBody().isEmpty()) {
+            return Response.fail(commonMessage.getEmptyId());
+        }
         Integer result = userService.removeUser(ids.getBody());
         if (result < 1) {
             return Response.fail(commonMessage.getEntityRemoveFailed(ENTITY_NAME));
@@ -81,6 +84,9 @@ public class UserController {
     @ApiOperation("更新用户")
     @RequiresPermissions("system:user:update")
     public Response<String> updateUser(@RequestBody UserRequestDTO requestDTO) {
+        if (requestDTO.getId() == null) {
+            return Response.fail(commonMessage.getEmptyId());
+        }
         Integer result = userService.updateUser(requestDTO);
         if (result > 0) {
             return Response.success(commonMessage.getEntityUpdateSuccess(ENTITY_NAME));

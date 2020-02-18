@@ -32,6 +32,9 @@ public class CommonMessage {
     private String loginEmptyUsernameError;
     private String loginUserNotFound;
 
+    private String emptyId;
+
+
     public String getEntityUpdateSuccess(String entityName) {
         try {
             return String.format(entityUpdateSuccess, entityName);
