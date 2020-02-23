@@ -118,12 +118,6 @@ export default {
               component: './system/user',
             },
             {
-              name: '测试用户',
-              icon: 'smile',
-              path: '/system/sysU2s',
-              component: './system/sysU2',
-            },
-            {
               component: './404',
             },
           ],
