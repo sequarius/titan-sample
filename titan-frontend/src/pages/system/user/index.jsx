@@ -4,25 +4,9 @@ import UserTable from './components/UserTable';
 import { connect } from 'dva';
 
 const UserPage = ({ systemUser }) => {
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  }, []);
   return (
-    <PageHeaderWrapper
-    // className={styles.main}
-    >
+    <PageHeaderWrapper>
       <UserTable />
-      {/* <div
-        style={{
-          paddingTop: 100,
-          textAlign: 'center',
-        }}
-      >
-        <Spin spinning={loading} size="large"></Spin>
-      </div> */}
     </PageHeaderWrapper>
   );
 };

@@ -1,16 +1,16 @@
-import { updateUser, removeUser, saveUser, listUser } from '@/services/user';
+import { updateSysU2, removeSysU2, saveSysU2, listSysU2 } from '@/services/system/sysU2';
 import { DEFAUNT_PAGE_SIZE } from '@/utils/constant';
-const UserModel = {
-  namespace: 'systemUser',
+const SysU2Model = {
+  namespace: 'systemSysU2',
   state: {
     list: [],
     total: null,
     current: null,
-    user: null,
+    sysU2: null,
   },
   effects: {
     *list({ payload: { page = 1 } }, { call, put }) {
-      const response = yield call(listUser, {
+      const response = yield call(listSysU2, {
         begin: (page - 1) * DEFAUNT_PAGE_SIZE,
         length: DEFAUNT_PAGE_SIZE,
       });
@@ -21,27 +21,26 @@ const UserModel = {
         });
       }
     },
-    *saveUser({ payload: { user } }, { call, put, select }) {
-      const response = yield call(saveUser, user);
-      console.log(response);
+    *saveSysU2({ payload: { sysU2 } }, { call, put, select }) {
+      const response = yield call(saveSysU2, sysU2);
       if (response.result) {
-        const page = yield select(state => state.systemUser.current);
+        const page = yield select(state => state.systemSysU2.current);
         yield put({ type: 'list', payload: { page } });
-        yield put({ type: 'setUser', payload: { user: null } });
+        yield put({ type: 'setSysU2', payload: { sysU2: null } });
       }
     },
-    *updateUser({ payload: { user } }, { call, put, select }) {
-      const response = yield call(updateUser, user);
+    *updateSysU2({ payload: { sysU2 } }, { call, put, select }) {
+      const response = yield call(updateSysU2, sysU2);
       if (response.result) {
-        const page = yield select(state => state.systemUser.current);
+        const page = yield select(state => state.systemSysU2.current);
         yield put({ type: 'list', payload: { page } });
-        yield put({ type: 'setUser', payload: { user: null } });
+        yield put({ type: 'setSysU2', payload: { sysU2: null } });
       }
     },
-    *removeUser({ payload: { id } }, { call, put, select }) {
-      const response = yield call(removeUser, [id]);
+    *removeSysU2({ payload: { id } }, { call, put, select }) {
+      const response = yield call(removeSysU2, [id]);
       if (response.result) {
-        const page = yield select(state => state.systemUser.current);
+        const page = yield select(state => state.systemSysU2.current);
         yield put({ type: 'list', payload: { page } });
       }
     },
@@ -51,18 +50,18 @@ const UserModel = {
       let current = begin / length + 1;
       return { ...state, list, total, current };
     },
-    setUser(state, { payload: { user } }) {
-      return { ...state, user };
+    setSysU2(state, { payload: { sysU2 } }) {
+      return { ...state, sysU2 };
     },
   },
   subscriptions: {
     setup({ dispatch, history }) {
       history.listen(({ pathname, query }) => {
-        if (pathname === '/system/users') {
+        if (pathname === '/system/sysU2s') {
           dispatch({ type: 'list', payload: query });
         }
       });
     },
   },
 };
-export default UserModel;
+export default SysU2Model;

@@ -16,25 +16,17 @@ const UserModal = ({ dispatch, systemUser, loading }) => {
   const upadteLoading = loading.effects['systemUser/updateUser'];
   const saveLoading = loading.effects['systemUser/saveUser'];
 
-  function showModal() {
-    dispatch({
-      type: 'systemUser/setUser',
-      payload: { user: {} },
-    });
-  }
-
   useEffect(() => {
     if (systemUser.user !== null) {
       form.resetFields();
       form.setFieldsValue({ user: systemUser.user });
     }
-  });
+  }, [systemUser]);
 
   function handleOk() {
     form
       .validateFields()
       .then(values => {
-        form.submit();
         if (systemUser.user?.id) {
           values.user.id = systemUser.user.id;
           dispatch({
@@ -62,39 +54,48 @@ const UserModal = ({ dispatch, systemUser, loading }) => {
   }
 
   return (
-    <div>
-      <Button type="primary" onClick={showModal}>
-        新建用户
-      </Button>
-      <Modal
-        title={(systemUser?.user?.id ? '修改' : '新增') + '用户'}
-        visible={systemUser.user !== null}
-        onOk={handleOk}
-        maskClosable={false}
-        forceRender={true}
-        confirmLoading={upadteLoading || saveLoading}
-        cancelButtonProps={{ disabled: upadteLoading || saveLoading }}
-        onCancel={handleCancel}
+    <Modal
+      title={(systemUser?.user?.id ? '修改' : '新增') + '用户'}
+      visible={systemUser.user !== null}
+      onOk={handleOk}
+      maskClosable={false}
+      destroyOnClose
+      forceRender={true}
+      confirmLoading={upadteLoading || saveLoading}
+      cancelButtonProps={{ disabled: upadteLoading || saveLoading }}
+      onCancel={handleCancel}
+    >
+      <Form
+        {...layout}
+        form={form}
+        initialValues={{ user: systemUser.user }}
+        name="system-user-from"
       >
-        <Form {...layout} form={form} name="system-user-from">
-          <Form.Item name={['user', 'username']} label="用户名" rules={[{ required: true }]}>
-            <Input />
-          </Form.Item>
-          <Form.Item name={['user', 'password']} label="密码">
-            <Input />
-          </Form.Item>
-          <Form.Item name={['user', 'phoneNumber']} label="手机号" rules={[{ required: true }]}>
-            <Input />
-          </Form.Item>
-          <Form.Item name={['user', 'age']} label="年龄">
-            <InputNumber />
-          </Form.Item>
-          <Form.Item name={['user', 'locked']} label="冻结" valuePropName="checked">
-            <Switch />
-          </Form.Item>
-        </Form>
-      </Modal>
-    </div>
+        <Form.Item
+          name={['user', 'username']}
+          label="用户名"
+          rules={[
+            { required: false, message: '用户名为必填项目' },
+            { max: 3, message: '用户名不能超过3位' },
+            { min: 1, message: '用户名不能少于1位' },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item name={['user', 'password']} label="密码">
+          <Input />
+        </Form.Item>
+        <Form.Item name={['user', 'phoneNumber']} label="手机号" rules={[{ required: true }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item name={['user', 'age']} label="年龄">
+          <InputNumber />
+        </Form.Item>
+        <Form.Item name={['user', 'locked']} label="冻结" valuePropName="checked">
+          <Switch />
+        </Form.Item>
+      </Form>
+    </Modal>
   );
 };
 

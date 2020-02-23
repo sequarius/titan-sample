@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { Divider, Popconfirm } from 'antd';
+import { Divider, Popconfirm, Button } from 'antd';
 import ProTable from '@ant-design/pro-table';
 import UserModal from '../UserModal';
 import { connect } from 'dva';
@@ -9,38 +9,24 @@ import router from 'umi/router';
 const UserTable = ({ dispatch, systemUser, loading }) => {
   const isLoading = loading.effects['systemUser/list'];
 
-  const ref = useRef();
-
-  useEffect(() => {
-    console.log('useRef');
-    console.log(ref.current);
-    ref.current.reload = dispatch({
-      type: 'systemUser/list',
-      payload: { page: 1 },
-    });
-  }, []);
-
   const columns = [
     {
       title: 'id',
       dataIndex: 'id',
-      key: 'id',
     },
     {
       title: '用户名',
       dataIndex: 'username',
-      key: 'username',
       render: text => <a>{text}</a>,
     },
     {
       title: '电话号码',
       dataIndex: 'phoneNumber',
-      key: 'phoneNumber',
     },
     {
       title: '操作',
-      key: 'id',
-      render: (text, record) => (
+      dataIndex: 'option',
+      render: (_, record) => (
         <span>
           <a onClick={() => updateUserHandler(record)}>修改</a>
           <Divider type="vertical" />
@@ -77,17 +63,22 @@ const UserTable = ({ dispatch, systemUser, loading }) => {
     <div>
       <div id="components-table-demo-basic">
         <ProTable
+          options={{ density: true, fullScreen: true, setting: true }}
           rowKey="id"
-          actionRef={ref}
           pagination={false}
           total={systemUser.total}
-          toolBarRender={(action, { selectedRows }) => [<UserModal />]}
+          toolBarRender={(action, { selectedRows }) => [
+            <Button type="primary" onClick={() => updateUserHandler({})}>
+              新建用户
+            </Button>,
+          ]}
           headerTitle="用户列表"
           search={false}
           columns={columns}
           loading={isLoading}
           dataSource={systemUser.list}
         />
+        <UserModal />
         <Pagination
           className="ant-table-pagination"
           onChange={pageChangedHandler}

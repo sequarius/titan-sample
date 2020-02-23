@@ -17,12 +17,12 @@ const plugins = [
         hmr: true,
       },
       locale: {
-        // default false
-        enable: true,
-        // default zh-CN
-        default: 'zh-CN',
-        // default true, when it is true, will use `navigator.language` overwrite default
-        baseNavigator: true,
+        // // default false
+        // enable: true,
+        // // default zh-CN
+        // default: 'zh-CN',
+        // // default true, when it is true, will use `navigator.language` overwrite default
+        // baseNavigator: true,
       },
       dynamicImport: {
         loadingComponent: './components/PageLoading/index',
@@ -124,6 +124,12 @@ export default {
               component: './system/user',
             },
             {
+              name: '测试用户',
+              icon: 'smile',
+              path: '/system/sysU2s',
+              component: './system/sysU2',
+            },
+            {
               component: './404',
             },
           ],
@@ -177,12 +183,15 @@ export default {
   },
   manifest: {
     basePath: '/',
-  }, // chainWebpack: webpackPlugin,
+  },
+  // chainWebpack: webpackPlugin,
   proxy: {
     '/api/': {
       target: 'http://localhost:8080/',
       changeOrigin: true,
-      pathRewrite: { '^/api': '' },
+      pathRewrite: {
+        '^/api': '',
+      },
     },
   },
 };

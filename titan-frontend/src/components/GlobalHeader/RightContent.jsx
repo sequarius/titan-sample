@@ -53,7 +53,7 @@ const GlobalHeaderRight = props => {
         </a>
       </Tooltip>
       <Avatar />
-      <SelectLang className={styles.action} />
+      {/* <SelectLang className={styles.action} /> */}
     </div>
   );
 };
