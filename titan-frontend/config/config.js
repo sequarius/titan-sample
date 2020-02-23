@@ -112,13 +112,7 @@ export default {
               authority: ['admin'],
             },
             {
-              name: 'list.table-list',
-              icon: 'table',
-              path: '/list',
-              component: './ListTableList',
-            },
-            {
-              name: 'user.manage',
+              name: '用户管理',
               icon: 'smile',
               path: '/system/users',
               component: './system/user',

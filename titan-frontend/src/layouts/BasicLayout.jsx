@@ -4,7 +4,6 @@
  * https://github.com/ant-design/ant-design-pro-layout
  */
 import ProLayout, { DefaultFooter } from '@ant-design/pro-layout';
-import { formatMessage } from 'umi-plugin-react/locale';
 import React, { useEffect } from 'react';
 import { Link } from 'umi';
 import { connect } from 'dva';
@@ -14,6 +13,7 @@ import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { isAntDesignPro, getAuthorityFromRouter } from '@/utils/utils';
 import logo from '../assets/logo.svg';
+
 const noMatch = (
   <Result
     status="403"
@@ -26,10 +26,10 @@ const noMatch = (
     }
   />
 );
-
 /**
  * use Authorized check all menu item
  */
+
 const menuDataRender = menuList =>
   menuList.map(item => {
     const localItem = { ...item, children: item.children ? menuDataRender(item.children) : [] };
@@ -100,7 +100,6 @@ const BasicLayout = props => {
   /**
    * constructor
    */
-
   // useEffect(() => {
   //   if (dispatch) {
   //     dispatch({
@@ -108,6 +107,7 @@ const BasicLayout = props => {
   //     });
   //   }
   // }, []);
+
   /**
    * init variables
    */
@@ -127,7 +127,6 @@ const BasicLayout = props => {
   return (
     <ProLayout
       logo={logo}
-      formatMessage={formatMessage}
       menuHeaderRender={(logoDom, titleDom) => (
         <Link to="/">
           {logoDom}
