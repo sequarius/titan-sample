@@ -6,17 +6,17 @@ export default {
       theme: 'dark',
     },
     {
-      key: 'dust',
-      fileName: 'dust.css',
+      key: 'default',
+      fileName: 'default.css',
       modifyVars: {
-        '@primary-color': '#F5222D',
+        '@primary-color': '#1890ff',
       },
     },
     {
-      key: 'volcano',
-      fileName: 'volcano.css',
+      key: 'red',
+      fileName: 'red.css',
       modifyVars: {
-        '@primary-color': '#FA541C',
+        '@primary-color': '#F5222D',
       },
     },
     {
@@ -27,24 +27,10 @@ export default {
       },
     },
     {
-      key: 'cyan',
-      fileName: 'cyan.css',
-      modifyVars: {
-        '@primary-color': '#13C2C2',
-      },
-    },
-    {
       key: 'green',
       fileName: 'green.css',
       modifyVars: {
         '@primary-color': '#52C41A',
-      },
-    },
-    {
-      key: 'geekblue',
-      fileName: 'geekblue.css',
-      modifyVars: {
-        '@primary-color': '#2F54EB',
       },
     },
     {
@@ -54,61 +40,56 @@ export default {
         '@primary-color': '#722ED1',
       },
     },
-    {
-      key: 'dust',
-      theme: 'dark',
-      fileName: 'dark-dust.css',
-      modifyVars: {
-        '@primary-color': '#F5222D',
-      },
-    },
-    {
-      key: 'volcano',
-      theme: 'dark',
-      fileName: 'dark-volcano.css',
-      modifyVars: {
-        '@primary-color': '#FA541C',
-      },
-    },
-    {
-      key: 'sunset',
-      theme: 'dark',
-      fileName: 'dark-sunset.css',
-      modifyVars: {
-        '@primary-color': '#FAAD14',
-      },
-    },
-    {
-      key: 'cyan',
-      theme: 'dark',
-      fileName: 'dark-cyan.css',
-      modifyVars: {
-        '@primary-color': '#13C2C2',
-      },
-    },
-    {
-      key: 'green',
-      theme: 'dark',
-      fileName: 'dark-green.css',
-      modifyVars: {
-        '@primary-color': '#52C41A',
-      },
-    },
-    {
-      key: 'geekblue',
-      theme: 'dark',
-      fileName: 'dark-geekblue.css',
-      modifyVars: {
-        '@primary-color': '#2F54EB',
-      },
-    },
-    {
-      key: 'purple',
-      theme: 'dark',
-      fileName: 'dark-purple.css',
-      modifyVars: {
-        '@primary-color': '#722ED1',
-      },
-    },
+    // {
+    //   key: 'volcano',
+    //   theme: 'dark',
+    //   fileName: 'dark-volcano.css',
+    //   modifyVars: {
+    //     '@primary-color': '#FA541C',
+    //   },
+    // },
+    // {
+    //   key: 'sunset',
+    //   theme: 'dark',
+    //   navTheme: 'dark',
+    //   fileName: 'dark-sunset.css',
+    //   modifyVars: {
+    //     '@primary-color': '#FAAD14',
+    //   },
+    // },
+    // {
+    //   key: 'cyan',
+    //   theme: 'dark',
+    //   fileName: 'dark-cyan.css',
+    //   modifyVars: {
+    //     '@primary-color': '#13C2C2',
+    //   },
+    // },
+    // {
+    //   key: 'green',
+    //   theme: 'dark',
+    //   fileName: 'dark-green.css',
+    //   navTheme: 'dark',
+    //   modifyVars: {
+        
+    //     '@primary-color': '#52C41A',
+    //   },
+    // },
+    // {
+    //   key: 'geekblue',
+    //   theme: 'dark',
+    //   fileName: 'dark-geekblue.css',
+    //   modifyVars: {
+    //     '@primary-color': '#2F54EB',
+    //   },
+    // },
+    // {
+    //   key: 'purple',
+    //   theme: 'dark',
+    //   fileName: 'dark-purple.css',
+    //   modifyVars: {
+    //     '@primary-color': '#722ED1',
+    //   },
+    // },
   ],
 };

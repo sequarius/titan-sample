@@ -1,17 +1,17 @@
 package com.sequarius.titan.sample.core.componet;
 
-import com.sequarius.titan.sample.common.Response;
+import com.sequarius.titan.sample.common.domain.Response;
 import com.sequarius.titan.sample.common.message.CommonMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.UnauthorizedException;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -39,6 +39,16 @@ public class ExceptionAdvice {
         errorReportNum = new AtomicLong(10000);
     }
 
+    /**
+     * 全局去除输入前后空格
+     * @param binder
+     */
+    @InitBinder
+    public void initBinder ( WebDataBinder binder )
+    {
+        StringTrimmerEditor trimmer = new StringTrimmerEditor(true);
+        binder.registerCustomEditor(String.class, trimmer);
+    }
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
@@ -46,6 +56,13 @@ public class ExceptionAdvice {
         Long errorNumber = errorReportNum.incrementAndGet();
         log.error("exception happen：code = " + errorNumber + " , message = " + e.getMessage(), e);
         return Response.fail(String.format(commonMessage.getServiceError(), errorNumber));
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    @ResponseBody
+    public Response<String> methodNotSupportException(Exception e) {
+        log.warn(e.getMessage(),e);
+        return Response.fail(e.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

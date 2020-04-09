@@ -14,4 +14,7 @@ public class Constant {
     public static final String CONTENT_TYPE_JSON = "application/json";
 
     public static final String MESSAGE_CONFIG_LOCATION = "classpath:message.yaml";
+
+    public static final String EMPLOYEE_CHECK_IN_STATUS = "CHECK_IN";
+    public static final String INIT_PASSWORD = "ableerp";
 }

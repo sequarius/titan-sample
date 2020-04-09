@@ -9,7 +9,7 @@ import lombok.Data;
  * 用户角色关系
  *
  * @author Michael Chow
- * @date 2020/02/06
+ * @date 2020/04/09
  */
 
 @Entity(name = "SysUserRoleDO", displayName = "用户角色关系")

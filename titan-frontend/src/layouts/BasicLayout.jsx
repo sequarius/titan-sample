@@ -6,6 +6,7 @@
 import ProLayout, { DefaultFooter } from '@ant-design/pro-layout';
 import React, { useEffect } from 'react';
 import { Link } from 'umi';
+import ChangePasswordModal from '@/components/ChangePasswordModal';
 import { connect } from 'dva';
 import { GithubOutlined } from '@ant-design/icons';
 import { Result, Button } from 'antd';
@@ -165,6 +166,7 @@ const BasicLayout = props => {
       <Authorized authority={authorized.authority} noMatch={noMatch}>
         {children}
       </Authorized>
+      <ChangePasswordModal/>
     </ProLayout>
   );
 };

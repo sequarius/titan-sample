@@ -1,6 +1,6 @@
 package com.sequarius.titan.sample.core.auth;
 
-import com.sequarius.titan.sample.common.Response;
+import com.sequarius.titan.sample.common.domain.Response;
 import com.sequarius.titan.sample.common.message.CommonMessage;
 import com.sequarius.titan.sample.common.util.Constant;
 import com.sequarius.titan.sample.common.util.JacksonUtil;

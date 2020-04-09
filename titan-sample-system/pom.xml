@@ -25,5 +25,10 @@
             <groupId>com.sequarius</groupId>
             <artifactId>titan-sample-system-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.9</version>
+        </dependency>
     </dependencies>
 </project>

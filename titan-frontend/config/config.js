@@ -5,7 +5,7 @@ import themePluginConfig from './themePluginConfig';
 const { pwa } = defaultSettings; // preview.pro.ant.design only do not use in your production ;
 // preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
 
-const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION } = process.env;
+const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION, ERP_ENV } = process.env;
 const isAntDesignProPreview = ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION === 'site';
 const plugins = [
   ['umi-plugin-antd-icon-config', {}],
@@ -15,6 +15,12 @@ const plugins = [
       antd: true,
       dva: {
         hmr: true,
+        config: {
+          onError(e) {
+            e.preventDefault();
+            console.error(e);
+          },
+        },
       },
       locale: {
         // // default false
@@ -66,6 +72,10 @@ if (isAntDesignProPreview) {
   plugins.push(['umi-plugin-antd-theme', themePluginConfig]);
 }
 
+if (ERP_ENV) {
+  plugins.push(['umi-plugin-antd-theme', themePluginConfig]);
+}
+
 export default {
   plugins,
   hash: true,
@@ -81,7 +91,7 @@ export default {
         {
           name: 'login',
           path: '/login',
-          component: './user/login',
+          component: './system/Login',
         },
       ],
     },
@@ -112,10 +122,58 @@ export default {
               authority: ['admin'],
             },
             {
-              name: '用户管理',
-              icon: 'smile',
-              path: '/system/users',
-              component: './system/user',
+              name: '系统管理',
+              icon: 'DesktopOutlined',
+              path: '/system',
+              // authority: [
+              //   // 'system:sysUser:view',
+              //   // 'system:sysRole:view',
+              //   // 'system:sysPermission:view',
+              // ],
+              routes: [
+                {
+                  name: '用户管理',
+                  icon: 'UserOutlined',
+                  path: '/system/sysUsers',
+                  // authority: ['system:sysUser:view'],
+                  component: './system/SysUser',
+                },
+                {
+                  name: '角色管理',
+                  icon: 'TeamOutlined',
+                  path: '/system/sysRoles',
+                  // authority: ['system:sysRole:view'],
+                  component: './system/SysRole',
+                },
+                {
+                  name: '权限管理',
+                  icon: 'KeyOutlined',
+                  path: '/system/sysPermissions',
+                  authority: ['system:sysPermission:view'],
+                  component: './system/SysPermission',
+                },
+                {
+                  name: '元数据组管理',
+                  icon: 'AppstoreOutlined',
+                  path: '/system/sysMetadataGroups',
+                  authority: ['system:sysMetadataGroup:view'],
+                  component: './system/SysMetadataGroup',
+                },
+                {
+                  name: '元数据管理',
+                  hideInMenu: true,
+                  path: '/system/sysMetadataGroups/:id',
+                  authority: ['system:sysMetadata:view'],
+                  component: './system/SysMetadata',
+                },
+                {
+                  name: '配置管理',
+                  icon: 'SettingOutlined',
+                  path: '/system/sysConfigs',
+                  authority: ['system:sysConfig:view'],
+                  component: './system/SysConfig',
+                },
+              ],
             },
             {
               component: './404',

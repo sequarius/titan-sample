@@ -14,8 +14,6 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.util.StringUtils;
 
-import java.util.TreeSet;
-
 /**
  * project titan-sample
  *
@@ -44,9 +42,10 @@ public class DefaultRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 
         info.setRoles(user.getRoles());
-        info.setStringPermissions(new TreeSet<String>(){{
-            add("*:*:*");
-        }});
+        info.setStringPermissions(user.getPermissions());
+//        info.setStringPermissions(new TreeSet<String>(){{
+//            add("*:*:*");
+//        }});
 
         return info;
     }
@@ -65,8 +64,15 @@ public class DefaultRealm extends AuthorizingRealm {
             throw new UnknownAccountException(String.format(commonMessage.getLoginUserNotFound(), userName));
         }
 
+        if(Boolean.TRUE.equals(user.getLocked())){
+            throw new LockedAccountException(commonMessage.getLoginAccountLocked());
+        }
+
         CurrentUser currentUser = new CurrentUser();
         BeanUtils.copyProperties(user, currentUser);
+
+        //TODO 先使用测试头像
+        currentUser.setAvatar("https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png");
 
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(currentUser, user.getPassword(), getName());
         return info;

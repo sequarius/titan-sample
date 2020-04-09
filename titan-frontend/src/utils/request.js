@@ -4,7 +4,8 @@
  */
 import { extend } from 'umi-request';
 import { notification } from 'antd';
-import { router } from 'umi';
+import { stringify } from 'querystring';
+import {cancelAuthority} from './authority';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -34,12 +35,12 @@ const errorHandler = error => {
     const errorText = codeMessage[response.status] || response.statusText;
     const { status, url } = response;
     if (status == 401) {
-      router.push('/login');
-      notification.warn({
-        description: '您已有30分钟没有进行任何操作，为了您的账号安全系统已自动退出！',
-        message: '请重新登陆',
-      });
-      return;
+      cancelAuthority();
+      if (window.location.pathname !== '/user/login') {
+        let redirect = stringify({redirect: window.location.href,message: '登录已过期，请重新登录！'});
+        window.location.href=`/login?${redirect}`
+      }
+      return response;
     }
 
     notification.error({

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sequarius.titan.sample.system.repository.MetaDataRepository">
+    <select id="getNextGroupNo" resultType="java.lang.Long">
+        SELECT
+            IFNULL(MAX(CAST(sm.group_no AS UNSIGNED)),0)+1
+        FROM
+            sys_metadata sm
+        WHERE
+            sm.group_id = #{groupId}
+        AND
+            sm.deleted = false
+    </select>
+    <select id="listByGroupKey" resultType="com.sequarius.titan.sample.domain.SysMetadataDO">
+        SELECT
+            sm.label,sm.id,group_no groupNo,group_id groupId
+        FROM
+            sys_metadata sm
+        INNER JOIN
+            sys_metadata_group smg
+        ON
+            smg.id =sm.group_id AND smg.`key`= #{groupKey}
+            AND smg.deleted = FALSE AND sm.deleted = FALSE
+            <if test = "keyword != null and keyword != ''">
+                <bind name="pattern" value="keyword + '%'" />
+                AND (sm.label LIKE #{pattern} OR sm.group_no LIKE #{pattern})
+            </if>
+        LIMIT
+            0,1000
+    </select>
+    <select id="getFormatMetadataLabel" resultType="java.lang.String">
+        SELECT
+            <if test="includeTag">
+                CONCAT(IF(LENGTH(smg.tag)>0,CONCAT('[',smg.tag,']'),''),LPAD(sm.group_no,IF(smg.min_key_length>LENGTH(sm.group_no),smg.min_key_length,LENGTH(sm.group_no)),'0'),sm.label)
+            </if>
+            <if test="!includeTag">
+                sm.label
+            </if>
+        FROM
+            sys_metadata sm
+        INNER
+            JOIN sys_metadata_group smg
+        ON
+            sm.id=#{id}  AND sm.deleted=false AND smg.deleted=false AND sm.group_id = smg.id
+    </select>
+</mapper>

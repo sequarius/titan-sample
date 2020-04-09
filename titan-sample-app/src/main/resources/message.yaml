@@ -1,5 +1,6 @@
 message:
   common:
+    loginAccountLocked: 账号已被锁定，请联系管理员解锁！
     entityNotFound: 无法找到%s!
     entitySaveSuccess: 新增%s成功!
     entityUpdateSuccess: 更新%s成功!
@@ -7,13 +8,27 @@ message:
     entitySaveFailed: 新建%s失败，请稍候再试！
     entityUpdateFailed: 未找到要更新%s，该%s可能已经被其他用户删除，请刷新列表后重试！
     entityRemoveFailed: 删除失败，%s可能已被其他用户删除,请刷新列表后重试!
+    entityExisted: '%s[%s]已经存在，请重新选择一个%s'
     requireToLogin: 登陆已过期，请重新登陆！
     loginEmptyUsernameError: 用户名为空!
     loginUserNotFound: 未找到用户：%s!
-    serviceError: 服务异常:错误回执号[%d],请提供该回执号给管理员获得更多帮助！
+    serviceError: 服务异常：错误回执号[%d],请提供该回执号给管理员获得更多帮助！
     emptyId: 无法完成请求：请求缺失id！
+    pageNotFound: 无法找到对应页面！
+    operateSuccess: 操作成功！
+    operateFailed: 操作失败，请稍后重试！
   system:
     loginPasswordError: 密码错误，请重新输入！
     loginAccountLock: 密码输入连续错误5次以上，帐号已被安全锁定10分钟！
     loginFailed: 登录失败，请确认用户名密码是否正确！
     loginSuccess: 登录成功！
+    logoutSuccess: 您已安全退出！
+    passwordRequired: 新建用户必须设置一个初始密码！
+    circleRoleDependency: 父角色存在循环继承关系:[%s]
+    hasEmployeeBind: 删除用户中有用户属于员工用户，请通过员工管理页面删除员工关联账号将被自动删除。
+    changepassword:
+      - 新密码不能小于6位
+      - 密码已修改，请使用新密码重新登陆
+      - 找不到需要修改的用户
+      - 修改失败，原密码不正确
+      - 修改失败，新密码与原密码相同

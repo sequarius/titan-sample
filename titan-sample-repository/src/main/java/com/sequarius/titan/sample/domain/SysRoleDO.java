@@ -9,7 +9,7 @@ import lombok.Data;
  * 角色
  *
  * @author Michael Chow
- * @date 2020/02/06
+ * @date 2020/04/09
  */
 
 @Entity(name = "SysRoleDO", displayName = "角色")
@@ -32,6 +32,12 @@ public class SysRoleDO {
      */
     @Filed(name = "description", displayName = "角色描述", length = 100)
     private String description;
+
+    /**
+     * 父角色id
+     */
+    @Filed(name = "parentId", displayName = "父角色id", length = 19)
+    private Long parentId;
 
     /**
      * 创建日期

@@ -26,14 +26,22 @@ public class CommonMessage {
     private String entitySaveFailed;
     private String entityUpdateFailed;
     private String entityRemoveFailed;
+    private String entityExisted;
+    private String operateSuccess;
+    private String operateFailed;
+
+    private String loginAccountLocked;
+    private String loginAccountCheckout;
 
     private String requireToLogin;
     private String serviceError;
     private String loginEmptyUsernameError;
     private String loginUserNotFound;
 
-    private String emptyId;
+    private String pageNotFound;
 
+
+    private String emptyId;
 
     public String getEntityUpdateSuccess(String entityName) {
         try {
@@ -93,6 +101,15 @@ public class CommonMessage {
     public String getEntityRemoveFailed(String entityName) {
         try {
             return String.format(entityRemoveFailed, entityName);
+        } catch (Exception e) {
+            log.warn(e.getMessage(), e);
+            return entityRemoveFailed;
+        }
+    }
+
+    public String getEntityExisted(String entityName,String value) {
+        try {
+            return String.format(entityExisted, entityName,value,entityName);
         } catch (Exception e) {
             log.warn(e.getMessage(), e);
             return entityRemoveFailed;

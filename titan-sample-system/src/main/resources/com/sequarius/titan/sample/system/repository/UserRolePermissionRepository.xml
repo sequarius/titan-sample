@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sequarius.titan.sample.system.repository.UserRolePermissionRepository">
+
+    <select id="listPermissions" resultType="com.sequarius.titan.sample.domain.SysPermissionDO">
+        SELECT sp.*
+            FROM sys_role sr
+            INNER JOIN sys_role_permission srp
+            INNER JOIN sys_permission sp
+        ON
+            sp.id = srp.permission_id
+            AND
+            sr.id = srp.role_id
+            AND
+            sr.id = #{roleId}
+    </select>
+    <select id="listRoles" resultType="com.sequarius.titan.sample.domain.SysRoleDO">
+        SELECT sr.*
+            FROM sys_user su
+            INNER JOIN sys_user_role sur
+            INNER JOIN sys_role sr
+        ON
+            su.id = sur.user_id
+            AND
+            sr.id = sur.role_id
+            AND
+            su.id = #{userId}
+    </select>
+</mapper>

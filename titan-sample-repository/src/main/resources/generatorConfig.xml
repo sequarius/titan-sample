@@ -8,9 +8,12 @@
     <properties resource="config.properties"/>
 
     <context id="DB2Tables" targetRuntime="MyBatis3">
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
         <plugin type="com.sequarius.generator.mybatis.plugins.LombokPlugin"/>
         <plugin type="com.sequarius.generator.mybatis.plugins.MySQLLimitPlugin">
-            <property name="pageEntityName" value="com.sequarius.titan.sample.common.Page"/>
+            <property name="pageEntityName" value="com.sequarius.titan.sample.common.domain.Page"/>
         </plugin>
         <plugin type="com.sequarius.generator.mybatis.plugins.IgnoreAutoDatePlugin"/>
         <plugin type="com.itfsw.mybatis.generator.plugins.EnumTypeStatusPlugin">

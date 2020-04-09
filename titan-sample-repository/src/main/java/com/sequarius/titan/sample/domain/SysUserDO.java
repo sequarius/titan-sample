@@ -2,14 +2,15 @@ package com.sequarius.titan.sample.domain;
 
 import com.sequarius.titan.sample.common.annonation.Entity;
 import com.sequarius.titan.sample.common.annonation.Filed;
-import java.util.Date;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * 用户
  *
  * @author Michael Chow
- * @date 2020/02/06
+ * @date 2020/04/09
  */
 
 @Entity(name = "SysUserDO", displayName = "用户")
@@ -28,9 +29,15 @@ public class SysUserDO {
     private String username;
 
     /**
+     * 姓名
+     */
+    @Filed(name = "name", displayName = "姓名", length = 16)
+    private String name;
+
+    /**
      * 密码
      */
-    @Filed(name = "password", displayName = "密码", length = 92)
+    @Filed(name = "password", displayName = "密码", length = 128)
     private String password;
 
     /**
